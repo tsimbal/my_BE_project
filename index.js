@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 
 import contactRouter from './routes/api/contact.js';
 
-const { PORT = 5000, DB_HOST } = process.env;
+const { PORT = 5000 } = process.env;
 const app = express();
 
 app.use(cors());
@@ -29,7 +29,9 @@ app.use((error, req, res, next) => {
 
 function start() {
   try {
-    mongoose.connect(DB_HOST);
+    mongoose.connect(
+      'mongodb+srv://tsimbal:Qwerty654321@cluster0.abyp07w.mongodb.net/contact_db?retryWrites=true&w=majority'
+    );
     app.listen(PORT, () =>
       console.log(`Server has been started on PORT: ${PORT}`)
     );
