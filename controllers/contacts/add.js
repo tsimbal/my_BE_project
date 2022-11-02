@@ -1,5 +1,7 @@
+import Contact from "../../models/contacts.js";
+
 const getById = async (req, res) => {
-  const result = req.body;
+  const result = await Contact.create(req.body);
 
   res.status(201).json(result);
 };
