@@ -21,7 +21,7 @@ const login = async (req, res) => {
     if (!user)
       return res
         .status(400)
-        .json({ statusCode: 400, message: 'User not found' });
+        .json({ statusCode: 400, message: 'User not found, HelloWorld' });
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch)
