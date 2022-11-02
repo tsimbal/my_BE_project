@@ -35,9 +35,7 @@ app.use((error, req, res, next) => {
 
 function start() {
   try {
-    mongoose.connect(
-      'mongodb+srv://tsimbal:Qwerty654321@cluster0.abyp07w.mongodb.net/contact_db?retryWrites=true&w=majority'
-    );
+    mongoose.connect(process.env.DB_HOST);
     app.listen(PORT, () =>
       console.log(`Server has been started on PORT: ${PORT}`)
     );
