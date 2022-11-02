@@ -2,15 +2,21 @@ import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
-import bodyParser from 'body-parser';
 import contactRouter from './routes/api/contact.js';
 
 const { PORT = 5000 } = process.env;
 const app = express();
 
-app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(
+  cors({
+    origin: ['https://test-node-tsimbal.herokuapp.com'],
+    methods: ['GET', 'POST', 'DELETE', 'PATCH', 'PUT'],
+    credentials: true,
+    origin: true,
+  })
+);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/contacts', contactRouter);
 
