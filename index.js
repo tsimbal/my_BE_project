@@ -1,10 +1,11 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
+import mongoose from 'mongoose';
 
 import contactRouter from './routes/api/contact.js';
 
-const { PORT = 5000 } = process.env;
+const { PORT = 5000, DB_HOST } = process.env;
 const app = express();
 
 app.use(cors());
@@ -27,6 +28,7 @@ app.use((error, req, res, next) => {
 
 async function start() {
   try {
+    await mongoose.connect(DB_HOST);
     app.listen(PORT, () =>
       console.log(`Server has been started on PORT: ${PORT}`)
     );

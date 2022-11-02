@@ -1,6 +1,7 @@
-const getAll = async (req, res) => {
-  const result = [1, 2, 3, 4, 5];
+import Contact from "../../models/contacts.js";
 
+const getAll = async (req, res) => {
+  const result = await Contact.find();
   res.json(result);
 };
 
