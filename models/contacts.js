@@ -1,4 +1,5 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
 const { Schema, model } = mongoose;
 
@@ -28,7 +29,7 @@ const contactsSchema = new Schema(
 
 const handleErrors = (error, data, next) => {
   const { name, code } = error;
-  if (name === "MongoServerError" && code === 11000) {
+  if (name === 'MongoServerError' && code === 11000) {
     error.status = 409;
   } else {
     error.status = 400;
@@ -36,8 +37,8 @@ const handleErrors = (error, data, next) => {
   next();
 };
 
-contactsSchema.post("save", handleErrors);
+contactsSchema.post('save', handleErrors).plugin(mongoosePaginate);
 
-const Contact = model("contacts", contactsSchema);
+const Contact = model('contacts', contactsSchema);
 
 export default Contact;

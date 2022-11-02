@@ -1,8 +1,20 @@
 import 'dotenv/config';
+import { readFile } from 'fs/promises';
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import swaggerUi from 'swagger-ui-express';
+const swaggerDoc = JSON.parse(
+  await readFile(new URL('./swagger/openapi.json', import.meta.url))
+);
+
+import * as middleware from './middlewares/index.js';
+
 import contactRouter from './routes/api/contact.js';
+import authRouter from './routes/api/auth.js';
+import userRouter from './routes/api/user.js';
+import productRouter from './routes/api/product.js';
+import categoryRouter from './routes/api/category.js';
 
 const { PORT = 5000 } = process.env;
 const app = express();
@@ -15,10 +27,16 @@ app.use(
     origin: true,
   })
 );
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 app.use('/api/contacts', contactRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/user', middleware.auth, userRouter);
+app.use('/api/products', middleware.auth, productRouter);
+app.use('/api/category', middleware.auth, categoryRouter);
 
 app.use((req, res) => {
   res.status(404).json({
