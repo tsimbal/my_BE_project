@@ -1,4 +1,5 @@
 import User from '../../models/user.js';
+import errorHandler from '../../utils/errorHandler.js';
 
 const edit = async (req, res) => {
   try {
