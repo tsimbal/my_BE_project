@@ -3,13 +3,7 @@ import errorHandler from '../../utils/errorHandler.js';
 
 const getCategories = async (req, res) => {
   try {
-    const categories = await Category.find().paginate(
-      {},
-      {
-        page: 1,
-        limit: 5,
-      }
-    );
+    const categories = await Category.find();
 
     if (!categories.length)
       return res
