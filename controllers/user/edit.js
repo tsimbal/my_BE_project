@@ -14,7 +14,10 @@ const edit = async (req, res) => {
         .status(400)
         .json({ statusCode: 400, message: 'User not updated' });
 
-    return res.status(200).json({ statusCode: 200, data: { ...user } });
+    const { ...foundUser } = user;
+    const { password, ...data } = foundUser['_doc'];
+
+    return res.status(200).json({ statusCode: 200, data });
   } catch (error) {
     errorHandler(res, error);
   }
