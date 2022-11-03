@@ -5,10 +5,10 @@ import * as ctrl from '../../controllers/category/index.js';
 
 const router = Router();
 
-router.get('/all-categories', ctrlWrapper(ctrl.getAll));
-router.get('/:id', ctrlWrapper(ctrl.getById));
-router.post('/create', ctrlWrapper(ctrl.create));
-router.patch('/edit/:id', ctrlWrapper(ctrl.edit));
-router.delete('/delete/:id', ctrlWrapper(ctrl.remove));
+router.get('/all-categories', ctrlWrapper(ctrl.getAllCategories));
+router.get('/:id', ctrlWrapper(ctrl.getCategory));
+router.post('/create', ctrlWrapper(ctrl.createCategory));
+router.patch('/edit/:id', ctrlWrapper(ctrl.editCategory));
+router.delete('/delete/:id', ctrlWrapper(ctrl.removeCategory));
 
 export default router;
