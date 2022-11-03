@@ -6,7 +6,7 @@ const { Schema, model, Types } = mongoose;
 const categorySchema = new Schema(
   {
     name: { type: String, default: null },
-    tags: [{ type: Types.ObjectId, ref: 'Tags' }],
+    tags: { type: Array, default: null },
     description: { type: String, default: null },
     category_id: { type: Number, default: null },
     image_url: { type: String, default: null },
