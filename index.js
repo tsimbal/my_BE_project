@@ -31,14 +31,34 @@ app.use(
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(compression({ threshold: 0 }));
+app.use(
+  compression({
+    level: 6,
+    threshold: 100 * 1000,
+    filter: (req, res) => {
+      if (req.headers['x-no-compression']) return false;
+
+      return compression.filter(req, res);
+    },
+  })
+);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
-app.use('/api/contacts', contactRouter);
-app.use('/api/auth', authRouter);
-app.use('/api/user', middleware.auth, userRouter);
-app.use('/api/products', middleware.auth, productRouter);
-app.use('/api/category', middleware.auth, categoryRouter);
+app.use('/api/contacts', middleware.addedHeaders, contactRouter);
+app.use('/api/auth', middleware.addedHeaders, authRouter);
+app.use('/api/user', middleware.addedHeaders, middleware.auth, userRouter);
+app.use(
+  '/api/products',
+  middleware.addedHeaders,
+  middleware.auth,
+  productRouter
+);
+app.use(
+  '/api/category',
+  middleware.addedHeaders,
+  middleware.auth,
+  categoryRouter
+);
 
 app.use((req, res) => {
   res.status(404).json({
