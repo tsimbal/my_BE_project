@@ -2,6 +2,7 @@ import User from '../../models/user.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { validationResult } from 'express-validator';
+import errorHandler from '../../utils/errorHandler.js';
 
 const login = async (req, res) => {
   try {
