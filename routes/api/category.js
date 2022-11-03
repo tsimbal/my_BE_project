@@ -5,7 +5,7 @@ import * as ctrl from '../../controllers/category/index.js';
 
 const router = Router();
 
-router.get('/all-categories', ctrlWrapper(ctrl.getAllCategories));
+router.get('/all-category', ctrlWrapper(ctrl.getAllCategories));
 router.get('/:id', ctrlWrapper(ctrl.getCategory));
 router.post('/create', ctrlWrapper(ctrl.createCategory));
 router.patch('/edit/:id', ctrlWrapper(ctrl.editCategory));
