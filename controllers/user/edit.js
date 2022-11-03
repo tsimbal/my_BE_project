@@ -5,7 +5,7 @@ const edit = async (req, res) => {
   try {
     const newUser = req.body;
 
-    const user = await User.findOneAndUpdate({ _id: req.params.id }, params, {
+    const user = await User.findOneAndUpdate({ _id: req.params.id }, newUser, {
       new: true,
     });
 
