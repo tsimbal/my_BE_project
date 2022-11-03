@@ -11,7 +11,7 @@ const createProduct = async (req, res) => {
       currency: req.body.currency,
       is_in_stock: req.body.is_in_stock,
     };
-    const result = new Product(newProduct);
+    const result = await Product.create(newProduct);
 
     res
       .status(201)

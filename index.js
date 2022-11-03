@@ -3,6 +3,7 @@ import { readFile } from 'fs/promises';
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import compression from 'compression';
 import swaggerUi from 'swagger-ui-express';
 const swaggerDoc = JSON.parse(
   await readFile(new URL('./swagger/openapi.json', import.meta.url))
@@ -30,6 +31,7 @@ app.use(
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(compression({ threshold: 0 }));
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 app.use('/api/contacts', contactRouter);

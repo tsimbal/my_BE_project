@@ -9,7 +9,7 @@ const createCategory = async (req, res) => {
       description: faker.commerce.productName(),
       image_url: faker.image.business(),
     };
-    const result = new Category(newCategory);
+    const result = await Category.create(newCategory);
 
     res
       .status(201)
