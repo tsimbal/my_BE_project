@@ -10,9 +10,10 @@ const info = async (req, res) => {
         .status(400)
         .json({ statusCode: 400, message: 'user not found' });
 
-    const { password, ...foundUser } = user[0].dataValues;
+    const { ...foundUser } = user;
+    const { password, ...data } = foundUser['_doc'];
 
-    return res.status(200).json({ statusCode: 200, data: { ...foundUser } });
+    return res.status(200).json({ statusCode: 200, data });
   } catch (error) {
     errorHandler(res, error);
   }
