@@ -2,13 +2,14 @@ import { Router } from 'express';
 
 import { ctrlWrapper } from '../../helpers/index.js';
 import * as ctrl from '../../controllers/product/index.js';
+import * as middleware from '../../middlewares/index.js';
 
 const router = Router();
 
 router.get('/all-products', ctrlWrapper(ctrl.getAllProducts));
 router.get('/:id', ctrlWrapper(ctrl.getProduct));
-router.post('/create', ctrlWrapper(ctrl.createProduct));
-router.patch('/edit/:id', ctrlWrapper(ctrl.editProduct));
-router.delete('/delete/:id', ctrlWrapper(ctrl.removeProduct));
+router.post('/create', middleware.auth, ctrlWrapper(ctrl.createProduct));
+router.patch('/edit/:id', middleware.auth, ctrlWrapper(ctrl.editProduct));
+router.delete('/delete/:id', middleware.auth, ctrlWrapper(ctrl.removeProduct));
 
 export default router;

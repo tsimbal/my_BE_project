@@ -46,19 +46,9 @@ app.use(
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 app.use('/api/contacts', middleware.addedHeaders, contactRouter);
 app.use('/api/auth', middleware.addedHeaders, authRouter);
-app.use('/api/user', middleware.addedHeaders, middleware.auth, userRouter);
-app.use(
-  '/api/products',
-  middleware.addedHeaders,
-  middleware.auth,
-  productRouter
-);
-app.use(
-  '/api/category',
-  middleware.addedHeaders,
-  middleware.auth,
-  categoryRouter
-);
+app.use('/api/user', middleware.addedHeaders, userRouter);
+app.use('/api/products', middleware.addedHeaders, productRouter);
+app.use('/api/category', middleware.addedHeaders, categoryRouter);
 
 app.use((req, res) => {
   res.status(404).json({
