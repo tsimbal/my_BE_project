@@ -3,7 +3,7 @@ import errorHandler from '../../utils/errorHandler.js';
 
 const info = async (req, res) => {
   try {
-    const user = await User.findOne({ id: req.user.userId });
+    const user = await User.findOne({ _id: req.user.userId });
 
     if (!user)
       return res
