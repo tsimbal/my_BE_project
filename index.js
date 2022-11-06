@@ -16,6 +16,7 @@ import authRouter from './routes/api/auth.js';
 import userRouter from './routes/api/user.js';
 import productRouter from './routes/api/product.js';
 import categoryRouter from './routes/api/category.js';
+import currencyRouter from './routes/api/currency.js';
 
 const { PORT = 5000 } = process.env;
 const app = express();
@@ -46,9 +47,10 @@ app.use(
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 app.use('/api/contacts', middleware.addedHeaders, contactRouter);
 app.use('/api/auth', middleware.addedHeaders, authRouter);
-app.use('/api/user', middleware.addedHeaders, userRouter);
+app.use('/api/user', middleware.auth, middleware.addedHeaders, userRouter);
 app.use('/api/products', middleware.addedHeaders, productRouter);
 app.use('/api/category', middleware.addedHeaders, categoryRouter);
+app.use('/api/currency', middleware.addedHeaders, currencyRouter);
 
 app.use((req, res) => {
   res.status(404).json({
