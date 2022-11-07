@@ -24,15 +24,8 @@ router.post(
   ],
   ctrlWrapper(ctrl.login)
 );
-
-// router.post("/logout", auth, async (req, res) => {
-//   try {
-//     if (req.user) req.user = {};
-
-//     res.status(200).json({ statusCode: 200, message: "Success logout" });
-//   } catch (error) {
-//     res.status(500).json({ statusCode: 500, message: "Internal server error" });
-//   }
-// });
-
+router.post('/refresh', ctrlWrapper(ctrl.refresh));
+router.get('/logout', ctrlWrapper(ctrl.logout));
+router.get('/refresh', ctrlWrapper(ctrl.refresh));
+router.get('/activation/:link', ctrlWrapper(ctrl.activate));
 export default router;
