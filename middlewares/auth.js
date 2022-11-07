@@ -1,14 +1,21 @@
-import jwt from 'jsonwebtoken';
+import tokenService from '../service/token-service.js';
 
 const auth = (req, res, next) => {
   if (req.meta === 'OPTIONS') return next();
 
   try {
-    const token = req.headers.authorization.split(' ')[1];
-    if (!token) return res.status(401).json({ message: 'Unauthorized' });
+    const authorization = req.headers.authorization;
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
+    if (!authorization)
+      return res.status(401).json({ message: 'Unauthorized' });
+
+    const accessToken = authorization.split(' ')[1];
+    if (!accessToken) return res.status(401).json({ message: 'Unauthorized' });
+
+    const userData = tokenService.validateAccessToken(accessToken);
+    if (!userData) return res.status(401).json({ message: 'Unauthorized' });
+
+    req.user = userData;
     next();
   } catch (err) {
     return res.status(401).json({
