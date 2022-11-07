@@ -1,4 +1,4 @@
-import Contact from "../../models/contacts.js";
+import Contact from '../../models/contacts.js';
 
 const getById = async (req, res) => {
   const result = await Contact.create(req.body);

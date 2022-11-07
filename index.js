@@ -4,6 +4,7 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import compression from 'compression';
+import cookieParser from 'cookie-parser';
 import swaggerUi from 'swagger-ui-express';
 const swaggerDoc = JSON.parse(
   await readFile(new URL('./swagger/openapi.json', import.meta.url))
@@ -32,6 +33,7 @@ app.use(
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(
   compression({
     level: 6,
@@ -68,7 +70,7 @@ app.use((error, req, res, next) => {
 function start() {
   try {
     mongoose.connect(
-      'mongodb+srv://tsimbal:Qwerty654321@cluster0.abyp07w.mongodb.net/contact_db?retryWrites=true&w=majority'
+      'mongodb+srv://tsimbal:Qwerty654321@cluster0.abyp07w.mongodb.net/test_node_db?retryWrites=true&w=majority'
     );
     app.listen(PORT, () =>
       console.log(`Server has been started on PORT: ${PORT}`)
