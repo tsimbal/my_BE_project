@@ -22,18 +22,17 @@ import currencyRouter from './routes/api/currency.js';
 const { PORT = 5000 } = process.env;
 const app = express();
 
+app.use(cookieParser());
 app.use(
   cors({
-    origin: ['https://test-node-tsimbal.herokuapp.com'],
+    origin: '*',
     methods: ['GET', 'POST', 'DELETE', 'PATCH', 'PUT'],
     credentials: true,
-    origin: true,
   })
 );
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 app.use(
   compression({
     level: 6,

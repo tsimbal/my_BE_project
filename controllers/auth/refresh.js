@@ -4,9 +4,9 @@ import User from '../../models/user.js';
 import tokenService from '../../service/token-service.js';
 
 const refresh = async (req, res) => {
-  const { refreshToken } = req.cookies;
+  const { refresh_token } = req.cookies;
 
-  if (!refreshToken) {
+  if (!refresh_token) {
     return res.status(401).json({
       statusCode: 401,
       message: 'Unauthorized',
@@ -14,8 +14,8 @@ const refresh = async (req, res) => {
     });
   }
 
-  const userData = tokenService.validateRefreshToken(refreshToken);
-  const tokenFromDb = await Token.findOne({ refresh_token: refreshToken });
+  const userData = tokenService.validateRefreshToken(refresh_token);
+  const tokenFromDb = await Token.findOne({ refresh_token });
 
   if (!userData || !tokenFromDb) {
     return res.status(401).json({
@@ -32,9 +32,11 @@ const refresh = async (req, res) => {
 
   await tokenService.saveToken(userFromDto.id, tokens.refresh_token);
 
-  res.cookie('refreshToken', tokens.refresh_token, {
+  res.cookie('refresh_token', tokens.refresh_token, {
     maxAge: 30 * 24 * 60 * 60 * 1000,
-    httpOnly: true,
+    httpOnly: false,
+    sameSite: 'None',
+    secure: true,
   });
 
   return res.status(200).json({
