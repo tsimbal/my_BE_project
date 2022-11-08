@@ -25,9 +25,10 @@ const app = express();
 app.use(cookieParser());
 app.use(
   cors({
-    origin: [process.env.CLIENT_URL],
+    origin: ['https://test-node-tsimbal.herokuapp.com'],
     methods: ['GET', 'POST', 'DELETE', 'PATCH', 'PUT'],
     credentials: true,
+    origin: true,
   })
 );
 
