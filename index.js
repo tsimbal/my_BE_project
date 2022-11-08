@@ -23,14 +23,18 @@ const { PORT = 5000 } = process.env;
 const app = express();
 
 app.use(cookieParser());
-app.use(
-  cors({
-    origin: ['https://test-node-tsimbal.herokuapp.com'],
-    methods: ['GET', 'POST', 'DELETE', 'PATCH', 'PUT'],
-    credentials: true,
-    origin: true,
-  })
-);
+app.use(cors());
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json'
+  );
+  next();
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -48,12 +52,12 @@ app.use(
 );
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
-app.use('/api/contacts', middleware.addedHeaders, contactRouter);
-app.use('/api/auth', middleware.addedHeaders, authRouter);
-app.use('/api/user', middleware.auth, middleware.addedHeaders, userRouter);
-app.use('/api/products', middleware.addedHeaders, productRouter);
-app.use('/api/category', middleware.addedHeaders, categoryRouter);
-app.use('/api/currency', middleware.addedHeaders, currencyRouter);
+app.use('/api/contacts', contactRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/user', middleware.auth, userRouter);
+app.use('/api/products', productRouter);
+app.use('/api/category', categoryRouter);
+app.use('/api/currency', currencyRouter);
 
 app.use((req, res) => {
   res.status(404).json({
