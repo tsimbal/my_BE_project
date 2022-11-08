@@ -4,7 +4,7 @@ import Token from '../models/Token.js';
 export default {
   generateToken: (data) => {
     const access_token = jwt.sign(data, process.env.JWT_SECRET, {
-      expiresIn: '1m',
+      expiresIn: '15s',
     });
 
     const refresh_token = jwt.sign(data, process.env.REFRESH_JWT_SECRET, {
