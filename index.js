@@ -23,7 +23,7 @@ const { PORT = 5000 } = process.env;
 const app = express();
 
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
