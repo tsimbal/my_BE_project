@@ -25,7 +25,7 @@ const app = express();
 app.use(cookieParser());
 app.use(
   cors({
-    origin: '*',
+    origin: [process.env.CLIENT_URL],
     methods: ['GET', 'POST', 'DELETE', 'PATCH', 'PUT'],
     credentials: true,
   })
@@ -33,6 +33,7 @@ app.use(
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 app.use(
   compression({
     level: 6,
