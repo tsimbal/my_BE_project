@@ -9,8 +9,7 @@ const logout = async (req, res) => {
 
   return res.status(200).json({
     statusCode: 200,
-    message: 'logout success',
-    token,
+    message: 'Success logout',
   });
 };
 

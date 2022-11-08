@@ -24,7 +24,7 @@ router.post(
   ],
   ctrlWrapper(ctrl.login)
 );
-router.post('/refresh', ctrlWrapper(ctrl.refresh));
+router.get('/refresh', ctrlWrapper(ctrl.refresh));
 router.get('/logout', ctrlWrapper(ctrl.logout));
 router.get('/refresh', ctrlWrapper(ctrl.refresh));
 router.get('/activation/:link', ctrlWrapper(ctrl.activate));

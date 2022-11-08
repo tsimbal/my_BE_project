@@ -7,13 +7,27 @@ const auth = (req, res, next) => {
     const authorization = req.headers.authorization;
 
     if (!authorization)
-      return res.status(401).json({ message: 'Unauthorized' });
+      return res.status(401).json({
+        statusCode: 401,
+        message: 'Unauthorized',
+        timestamps: Date.now(),
+      });
 
     const accessToken = authorization.split(' ')[1];
-    if (!accessToken) return res.status(401).json({ message: 'Unauthorized' });
+    if (!accessToken)
+      return res.status(401).json({
+        statusCode: 401,
+        message: 'Unauthorized',
+        timestamps: Date.now(),
+      });
 
     const userData = tokenService.validateAccessToken(accessToken);
-    if (!userData) return res.status(401).json({ message: 'Unauthorized' });
+    if (!userData)
+      return res.status(401).json({
+        statusCode: 401,
+        message: 'Unauthorized',
+        timestamps: Date.now(),
+      });
 
     req.user = userData;
     next();

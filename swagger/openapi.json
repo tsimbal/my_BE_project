@@ -29,16 +29,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "properties": {
-                    "statusCode": {
-                      "type": "number",
-                      "default": 201
-                    },
-                    "messages": {
-                      "type": "string",
-                      "default": "User created"
-                    }
-                  }
+                  "$ref": "#/components/schemas/ResAuth"
                 }
               }
             }
@@ -61,11 +52,38 @@
         },
         "responses": {
           "200": {
-            "description": "Res access_token",
+            "description": "Res auth data",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResLogin"
+                  "$ref": "#/components/schemas/ResAuth"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/refresh": {
+      "get": {
+        "tags": ["Auth"],
+        "responses": {
+          "200": {
+            "description": "Res auth data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResAuth"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
                 }
               }
             }
@@ -74,7 +92,7 @@
       }
     },
     "/api/auth/logout": {
-      "post": {
+      "get": {
         "tags": ["Auth"],
         "security": [
           {
@@ -94,7 +112,7 @@
                     },
                     "messages": {
                       "type": "string",
-                      "default": "success logout"
+                      "default": "Success logout"
                     }
                   }
                 }
@@ -119,6 +137,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
                 }
               }
             }
@@ -161,6 +189,48 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/get-all": {
+      "get": {
+        "tags": ["User"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
                 }
               }
             }
@@ -289,6 +359,166 @@
     "/api/category/delete/{id}": {
       "delete": {
         "tags": ["Category"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/contacts/create": {
+      "post": {
+        "tags": ["Contact"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get user info",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/contacts/all-category": {
+      "get": {
+        "tags": ["Contact"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get user info",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/contacts/{id}": {
+      "get": {
+        "tags": ["Contact"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/contacts/edit/{id}": {
+      "patch": {
+        "tags": ["Contact"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/contacts/delete/{id}": {
+      "delete": {
+        "tags": ["Contact"],
         "security": [
           {
             "BearerAuth": []
@@ -691,6 +921,57 @@
           }
         }
       },
+      "ResAuth": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "default": 200
+          },
+          "access_token": {
+            "type": "string",
+            "default": "ey212sfagojerta"
+          },
+          "refresh_token": {
+            "type": "string",
+            "default": "ey212sfagojerta"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string",
+                "default": "test@test.test"
+              },
+              "id": {
+                "type": "string",
+                "default": "12asfsafs323"
+              },
+              "isActivated": {
+                "type": "boolean",
+                "default": "false"
+              }
+            }
+          }
+        }
+      },
+      "Unauthorized": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "default": 401
+          },
+          "message": {
+            "type": "string",
+            "default": "Unauthorized"
+          },
+          "timestamps": {
+            "type": "number",
+            "default": 123546879461
+          }
+        }
+      },
       "User": {
         "type": "object",
         "properties": {
@@ -710,18 +991,6 @@
               "sex": {
                 "type": "number"
               },
-              "email": {
-                "type": "string"
-              },
-              "password": {
-                "type": "string"
-              },
-              "zip": {
-                "type": "string"
-              },
-              "phone": {
-                "type": "string"
-              },
               "birthday": {
                 "type": "string"
               },
@@ -733,6 +1002,26 @@
               },
               "address": {
                 "type": "string"
+              },
+              "avatar": {
+                "type": "string"
+              },
+              "phone": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "zip": {
+                "type": "string"
+              },
+              "isActivated": {
+                "type": "boolean",
+                "default": false
+              },
+              "activationLink": {
+                "type": "string",
+                "default": ""
               },
               "updatedAt": {
                 "type": "string"
