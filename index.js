@@ -52,12 +52,12 @@ app.use(
 );
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
-app.use('/api/contacts', middleware.addedHeaders, contactRouter);
-app.use('/api/auth', middleware.addedHeaders, authRouter);
-app.use('/api/user', middleware.auth, middleware.addedHeaders, userRouter);
-app.use('/api/products', middleware.addedHeaders, productRouter);
-app.use('/api/category', middleware.addedHeaders, categoryRouter);
-app.use('/api/currency', middleware.addedHeaders, currencyRouter);
+app.use('/api/contacts', contactRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/user', middleware.auth, userRouter);
+app.use('/api/products', productRouter);
+app.use('/api/category', categoryRouter);
+app.use('/api/currency', currencyRouter);
 
 app.use((req, res) => {
   res.status(404).json({
