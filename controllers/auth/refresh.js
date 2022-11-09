@@ -1,28 +1,21 @@
 import userDto from '../../dto/user-dto.js';
 import Token from '../../models/Token.js';
-import User from '../../models/user.js';
+import User from '../../models/User.js';
+import errorService from '../../service/error-service.js';
 import tokenService from '../../service/token-service.js';
 
 const refresh = async (req, res) => {
   const { refresh_token } = req.cookies;
 
   if (!refresh_token) {
-    return res.status(401).json({
-      statusCode: 401,
-      message: 'Unauthorized',
-      timestamps: Date.now(),
-    });
+    return errorService.unauthorized(res);
   }
 
   const userData = tokenService.validateRefreshToken(refresh_token);
   const tokenFromDb = await Token.findOne({ refresh_token });
 
   if (!userData || !tokenFromDb) {
-    return res.status(401).json({
-      statusCode: 401,
-      message: 'Unauthorized',
-      timestamps: Date.now(),
-    });
+    return errorService.unauthorized(res);
   }
 
   const user = await User.findById(userData.id);
@@ -43,7 +36,7 @@ const refresh = async (req, res) => {
     statusCode: 200,
     ...tokens,
     data: {
-      userFromDto,
+      ...userFromDto,
     },
   });
 };

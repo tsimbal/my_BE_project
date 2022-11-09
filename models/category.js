@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
 
-const { Schema, model, Types } = mongoose;
+const { Schema, model } = mongoose;
 
 const categorySchema = new Schema(
   {

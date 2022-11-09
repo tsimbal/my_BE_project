@@ -1,26 +1,25 @@
-import Product from '../../models/product.js';
-import errorHandler from '../../utils/errorHandler.js';
+import Product from '../../models/Product.js';
+import errorService from '../../service/error-service.js';
 
 const editProduct = async (req, res) => {
-  try {
-    const newProduct = req.body;
+  const newProduct = req.body;
 
+  try {
     const product = await Product.findByIdAndUpdate(
       { _id: req.params.id },
       newProduct,
       { new: true }
     );
 
-    if (!product)
-      return res
-        .status(400)
-        .json({ statusCode: 400, message: 'Product not updated' });
+    if (!product) {
+      return errorService.badRequest(res, 'Product not updated');
+    }
 
     return res
       .status(200)
-      .json({ statusCode: 200, message: 'Product was updated' });
+      .json({ statusCode: 200, message: 'Product was updated', data: product });
   } catch (error) {
-    errorHandler(res, error);
+    errorService.serverError(res, error);
   }
 };
 

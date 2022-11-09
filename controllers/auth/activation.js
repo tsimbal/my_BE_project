@@ -1,13 +1,12 @@
-import User from '../../models/user.js';
+import User from '../../models/User.js';
+import errorService from '../../service/error-service.js';
 
 const activate = async (req, res) => {
   const { link } = req.params;
 
   const user = await User.findOne({ activationLink: link });
   if (!user) {
-    return res
-      .status(400)
-      .json({ statusCode: 400, message: 'User with link not found' });
+    return errorService.badRequest(res, 'User with link not found');
   }
 
   user.isActivated = true;
