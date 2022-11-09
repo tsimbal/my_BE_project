@@ -1,5 +1,5 @@
-import Category from '../../models/category.js';
-import errorHandler from '../../utils/errorHandler.js';
+import Category from '../../models/Category.js';
+import errorService from '../../service/error-service.js';
 
 const editCategory = async (req, res) => {
   try {
@@ -11,16 +11,17 @@ const editCategory = async (req, res) => {
       { new: true }
     );
 
-    if (!category)
-      return res
-        .status(400)
-        .json({ statusCode: 400, message: 'Category not updated' });
+    if (!category) {
+      return errorService.badRequest(res, 'Category not updated');
+    }
 
-    return res
-      .status(200)
-      .json({ statusCode: 200, message: 'Category was updated' });
+    return res.status(200).json({
+      statusCode: 200,
+      message: 'Category was updated',
+      data: category,
+    });
   } catch (error) {
-    errorHandler(res, error);
+    errorService.serverError(res, error);
   }
 };
 

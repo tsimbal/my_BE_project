@@ -1,18 +1,17 @@
-import Category from '../../models/category.js';
-import errorHandler from '../../utils/errorHandler.js';
+import Category from '../../models/Category.js';
+import errorService from '../../service/error-service.js';
 
 const getCategories = async (req, res) => {
   try {
     const categories = await Category.find();
 
-    if (!categories.length)
-      return res
-        .status(400)
-        .json({ statusCode: 400, message: 'Category not found' });
+    if (!categories.length) {
+      return errorService.badRequest(res, 'Category not found');
+    }
 
     return res.status(200).json({ statusCode: 200, data: categories });
   } catch (error) {
-    errorHandler(res, error);
+    errorService.serverError(res, error);
   }
 };
 

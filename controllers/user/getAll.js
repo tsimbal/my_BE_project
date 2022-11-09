@@ -1,18 +1,17 @@
-import User from '../../models/user.js';
-import errorHandler from '../../utils/errorHandler.js';
+import User from '../../models/User.js';
+import errorService from '../../service/error-service.js';
 
 const getAll = async (req, res) => {
   try {
     const users = await User.find();
 
-    if (!users)
-      return res
-        .status(400)
-        .json({ statusCode: 400, message: 'users not found' });
+    if (!users) {
+      return errorService.badRequest(res, 'User not updated');
+    }
 
     return res.status(200).json({ statusCode: 200, data: users });
   } catch (error) {
-    errorHandler(res, error);
+    errorService.serverError(res, error);
   }
 };
 

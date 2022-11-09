@@ -1,21 +1,20 @@
-import Product from '../../models/product.js';
-import errorHandler from '../../utils/errorHandler.js';
+import Task from '../../models/Task.js';
+import errorService from '../../service/error-service.js';
 
-const removeProduct = async (req, res) => {
+const removeTask = async (req, res) => {
   try {
-    const product = await Product.remove({ _id: req.params.id });
+    const task = await Task.remove({ _id: req.params.id });
 
-    if (!product)
-      return res
-        .status(400)
-        .json({ statusCode: 400, message: 'Product not removed' });
+    if (!task) {
+      return errorService.badRequest(res, 'Task not removed');
+    }
 
     return res
       .status(200)
-      .json({ statusCode: 200, message: 'Product was removed' });
+      .json({ statusCode: 200, message: 'Task was removed' });
   } catch (error) {
-    errorHandler(res, error);
+    errorService.serverError(res, error);
   }
 };
 
-export default removeProduct;
+export default removeTask;

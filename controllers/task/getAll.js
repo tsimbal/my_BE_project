@@ -1,9 +1,9 @@
-import Product from '../../models/product.js';
-import errorHandler from '../../utils/errorHandler.js';
+import Task from '../../models/Task.js';
+import errorService from '../../service/error-service.js';
 
-const getAllProducts = async (req, res) => {
+const getAllTasks = async (req, res) => {
   try {
-    const products = await Product.find().paginate(
+    const tasks = await Task.find().paginate(
       {},
       {
         page: 1,
@@ -11,15 +11,14 @@ const getAllProducts = async (req, res) => {
       }
     );
 
-    if (!products.length)
-      return res
-        .status(400)
-        .json({ statusCode: 400, message: 'Products not found' });
+    if (!tasks.length) {
+      return errorService.badRequest(res, 'Tasks not found');
+    }
 
-    return res.status(200).json({ statusCode: 200, data: products });
+    return res.status(200).json({ statusCode: 200, data: tasks });
   } catch (error) {
-    errorHandler(res, error);
+    errorService.serverError(res, error);
   }
 };
 
-export default getAllProducts;
+export default getAllTasks;

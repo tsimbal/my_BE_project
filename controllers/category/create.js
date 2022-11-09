@@ -1,6 +1,6 @@
-import Category from '../../models/category.js';
-import errorHandler from '../../utils/errorHandler.js';
+import Category from '../../models/Category.js';
 import { faker } from '@faker-js/faker';
+import errorService from '../../service/error-service.js';
 
 const createCategory = async (req, res) => {
   try {
@@ -15,7 +15,7 @@ const createCategory = async (req, res) => {
       .status(201)
       .json({ statusCode: 201, data: result, message: 'Category created' });
   } catch (error) {
-    errorHandler(res, error);
+    errorService.serverError(res, error);
   }
 };
 

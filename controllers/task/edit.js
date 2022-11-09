@@ -1,27 +1,24 @@
-import Product from '../../models/product.js';
-import errorHandler from '../../utils/errorHandler.js';
+import Task from '../../models/Task.js';
+import errorService from '../../service/error-service.js';
 
-const editProduct = async (req, res) => {
+const editTask = async (req, res) => {
   try {
-    const newProduct = req.body;
+    const newTask = req.body;
 
-    const product = await Product.findByIdAndUpdate(
-      { _id: req.params.id },
-      newProduct,
-      { new: true }
-    );
+    const task = await Task.findByIdAndUpdate({ _id: req.params.id }, newTask, {
+      new: true,
+    });
 
-    if (!product)
-      return res
-        .status(400)
-        .json({ statusCode: 400, message: 'Product not updated' });
+    if (!task) {
+      return errorService.badRequest(res, 'Task not updated');
+    }
 
     return res
       .status(200)
-      .json({ statusCode: 200, message: 'Product was updated' });
+      .json({ statusCode: 200, message: 'Task was updated', data: task });
   } catch (error) {
-    errorHandler(res, error);
+    errorService.serverError(res, error);
   }
 };
 
-export default editProduct;
+export default editTask;

@@ -1,4 +1,4 @@
-import User from '../../models/user.js';
+import User from '../../models/User.js';
 import bcrypt from 'bcryptjs';
 import { validationResult } from 'express-validator';
 import { v4 as uuidv4 } from 'uuid';
@@ -11,20 +11,16 @@ const register = async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      return res.status(400).json({
-        errors: errors.array(),
-        message: 'incorrect data',
-      });
+      return errorService.badRequest(res, 'Incorrect data', errors.array());
     }
 
     const { email, password } = req.body;
 
     const candidate = await User.findOne({ email });
 
-    if (candidate)
-      return res
-        .status(400)
-        .json({ statusCode: 400, message: 'User is exist' });
+    if (candidate) {
+      return errorService.badRequest(res, 'User is exist');
+    }
 
     const activationLink = uuidv4();
 
@@ -60,8 +56,8 @@ const register = async (req, res) => {
         ...tokens,
       },
     });
-  } catch (error) {
-    res.status(500).json({ statusCode: 500, message: 'Internal server error' });
+  } catch (e) {
+    errorService.serverError(res, e);
   }
 };
 
