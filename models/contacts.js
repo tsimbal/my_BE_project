@@ -3,7 +3,7 @@ import mongoosePaginate from 'mongoose-paginate-v2';
 
 const { Schema, model } = mongoose;
 
-const contactsSchema = new Schema(
+const contactSchema = new Schema(
   {
     name: {
       type: String,
@@ -37,8 +37,8 @@ const handleErrors = (error, data, next) => {
   next();
 };
 
-contactsSchema.post('save', handleErrors).plugin(mongoosePaginate);
+contactSchema.post('save', handleErrors).plugin(mongoosePaginate);
 
-const Contact = model('contact', contactsSchema);
+const Contact = model('Contact', contactSchema);
 
 export default Contact;
