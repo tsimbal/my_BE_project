@@ -1,9 +1,9 @@
-import Product from '../../models/product.js';
-import errorHandler from '../../utils/errorHandler.js';
+import Task from '../../models/Task.js';
+import errorService from '../../service/error-service.js';
 
-const createProduct = async (req, res) => {
+const createTask = async (req, res) => {
   try {
-    const newProduct = {
+    const newTask = {
       name: req.body.name,
       description: req.body.description,
       category_id: req.body.category_id,
@@ -11,14 +11,18 @@ const createProduct = async (req, res) => {
       currency: req.body.currency,
       is_in_stock: req.body.is_in_stock,
     };
-    const result = await Product.create(newProduct);
+    const result = await Task.create(newTask);
+
+    if (!result) {
+      return errorService.badRequest(res, 'Task not created');
+    }
 
     res
       .status(201)
-      .json({ statusCode: 201, data: result, message: 'Product created' });
+      .json({ statusCode: 201, data: result, message: 'Task created' });
   } catch (error) {
-    errorHandler(res, error);
+    errorService.serverError(res, error);
   }
 };
 
-export default createProduct;
+export default createTask;

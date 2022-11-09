@@ -1,21 +1,20 @@
-import User from '../../models/user.js';
-import errorHandler from '../../utils/errorHandler.js';
+import User from '../../models/User.js';
+import errorService from '../../service/error-service.js';
 
 const info = async (req, res) => {
   try {
     const user = await User.findOne({ _id: req.user.id });
 
-    if (!user)
-      return res
-        .status(400)
-        .json({ statusCode: 400, message: 'user not found' });
+    if (!user) {
+      return errorService.badRequest(res, 'User not found');
+    }
 
     const { ...foundUser } = user;
     const { password, ...data } = foundUser['_doc'];
 
     return res.status(200).json({ statusCode: 200, data });
   } catch (error) {
-    errorHandler(res, error);
+    errorService.serverError(res, error);
   }
 };
 

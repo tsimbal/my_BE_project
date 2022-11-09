@@ -1,3 +1,4 @@
+import errorService from '../service/error-service.js';
 import tokenService from '../service/token-service.js';
 
 const auth = (req, res, next) => {
@@ -5,38 +6,18 @@ const auth = (req, res, next) => {
 
   try {
     const authorization = req.headers.authorization;
-
-    if (!authorization)
-      return res.status(401).json({
-        statusCode: 401,
-        message: 'Unauthorized',
-        timestamps: Date.now(),
-      });
+    if (!authorization) return errorService.unauthorized(res);
 
     const accessToken = authorization.split(' ')[1];
-    if (!accessToken)
-      return res.status(401).json({
-        statusCode: 401,
-        message: 'Unauthorized',
-        timestamps: Date.now(),
-      });
+    if (!accessToken) return errorService.unauthorized(res);
 
     const userData = tokenService.validateAccessToken(accessToken);
-    if (!userData)
-      return res.status(401).json({
-        statusCode: 401,
-        message: 'Unauthorized',
-        timestamps: Date.now(),
-      });
+    if (!userData) return errorService.unauthorized(res);
 
     req.user = userData;
     next();
   } catch (err) {
-    return res.status(401).json({
-      statusCode: 401,
-      message: 'Unauthorized',
-      timestamps: Date.now(),
-    });
+    return errorService.unauthorized(res);
   }
 };
 

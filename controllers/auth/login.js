@@ -1,35 +1,29 @@
-import User from '../../models/user.js';
+import User from '../../models/User.js';
 import bcrypt from 'bcryptjs';
 import { validationResult } from 'express-validator';
-import errorHandler from '../../utils/errorHandler.js';
 import tokenService from '../../service/token-service.js';
 import userDto from '../../dto/user-dto.js';
+import errorService from '../../service/error-service.js';
 
 const login = async (req, res) => {
   try {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      return res.status(400).json({
-        statusCode: 400,
-        errors: errors.array(),
-        message: 'incorrect data',
-      });
+      return error.badRequest('Incorrect data', errors.array());
     }
 
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
-    if (!user)
-      return res
-        .status(400)
-        .json({ statusCode: 400, message: 'User not found' });
+    if (!user) {
+      return errorService.badRequest(res, 'User not found');
+    }
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch)
-      return res
-        .status(400)
-        .json({ statusCode: 400, message: 'incorrect password' });
+    if (!isMatch) {
+      return errorService.badRequest(res, 'incorrect password');
+    }
 
     const userData = userDto.generateUserDto(user);
     const tokens = tokenService.generateToken({ ...userData });
@@ -50,8 +44,8 @@ const login = async (req, res) => {
         userData,
       },
     });
-  } catch (error) {
-    errorHandler(res, error);
+  } catch (e) {
+    errorService.serverError(res, e);
   }
 };
 
