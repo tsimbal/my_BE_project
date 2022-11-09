@@ -39,6 +39,6 @@ const handleErrors = (error, data, next) => {
 
 contactsSchema.post('save', handleErrors).plugin(mongoosePaginate);
 
-const Contact = model('contacts', contactsSchema);
+const Contact = model('contact', contactsSchema);
 
 export default Contact;
