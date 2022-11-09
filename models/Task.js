@@ -1,7 +1,7 @@
 const { Schema, model, Types } = require('mongoose');
 import mongoosePaginate from 'mongoose-paginate-v2';
 
-const schema = new Schema(
+const taskSchema = new Schema(
   {
     owner: { type: Types.ObjectId, ref: 'User' },
     title: { type: String, default: null, required: true },
@@ -22,8 +22,8 @@ const handleErrors = (error, data, next) => {
   next();
 };
 
-userSchema.post('save', handleErrors).plugin(mongoosePaginate);
+taskSchema.post('save', handleErrors).plugin(mongoosePaginate);
 
-const User = model('user', userSchema);
+const Task = model('Task', taskSchema);
 
-export default User;
+export default Task;
