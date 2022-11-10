@@ -1,4 +1,4 @@
-import Product from '../../models/Product.js';
+import Product from '../../models/Product.model.js';
 import errorService from '../../service/error-service.js';
 
 const createProduct = async (req, res) => {

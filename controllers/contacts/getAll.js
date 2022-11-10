@@ -1,4 +1,4 @@
-import Contact from '../../models/Contacts.js';
+import Contact from '../../models/Contact.model.js';
 import errorService from '../../service/error-service.js';
 
 const getAll = async (req, res) => {

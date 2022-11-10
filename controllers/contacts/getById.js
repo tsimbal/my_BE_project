@@ -1,5 +1,5 @@
 import { createError } from '../../helpers/index.js';
-import Contact from '../../models/Contacts.js';
+import Contact from '../../models/Contact.model.js';
 
 const getById = async (req, res) => {
   const { id } = req.params;

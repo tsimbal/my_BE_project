@@ -1,4 +1,4 @@
-import Category from '../../models/Category.js';
+import Category from '../../models/Category.model.js';
 import { faker } from '@faker-js/faker';
 import errorService from '../../service/error-service.js';
 
