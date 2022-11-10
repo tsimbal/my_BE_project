@@ -35,6 +35,6 @@ const handleErrors = (error, data, next) => {
 
 userSchema.post('save', handleErrors).plugin(mongoosePaginate);
 
-const User = model('user', userSchema);
+const UserModel = model('user_model', userSchema);
 
-export default User;
+export default UserModel;
