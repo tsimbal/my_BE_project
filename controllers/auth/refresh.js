@@ -1,6 +1,6 @@
 import userDto from '../../dto/user-dto.js';
 import Token from '../../models/Token.js';
-import User from '../../models/User.js';
+import User from '../../models/User.model.js';
 import errorService from '../../service/error-service.js';
 import tokenService from '../../service/token-service.js';
 

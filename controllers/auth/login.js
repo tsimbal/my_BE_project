@@ -1,4 +1,4 @@
-import User from '../../models/User.js';
+import User from '../../models/User.model.js';
 import bcrypt from 'bcryptjs';
 import { validationResult } from 'express-validator';
 import tokenService from '../../service/token-service.js';
