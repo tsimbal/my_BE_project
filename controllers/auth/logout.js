@@ -1,4 +1,4 @@
-import Token from '../../models/Token.js';
+import Token from '../../models/Token.model.js';
 
 const logout = async (req, res) => {
   const { refreshToken } = req.cookies;
