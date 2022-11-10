@@ -7,6 +7,8 @@ import errorService from '../../service/error-service';
 import { Request, Response } from 'express';
 
 const login = async (req: Request, res: Response): Promise<Response> => {
+  console.log(req.body);
+
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {

@@ -7,16 +7,14 @@ const getAll = async (req: Request, res: Response): Promise<Response> => {
   const users = await User.find();
 
   if (!users) {
-    return errorService.badRequest(res, 'User not updated');
+    return errorService.badRequest(res, 'User not found');
   }
 
   const updatedUsers = users.reduce((acc, el): any => {
     return [...acc, userDto.removeUserPassword(el)];
   }, []);
 
-  console.log(updatedUsers);
-
-  return res.status(200).json({ statusCode: 200, data: users });
+  return res.status(200).json({ statusCode: 200, data: updatedUsers });
 };
 
 export default getAll;
