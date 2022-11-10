@@ -12,7 +12,7 @@ const swaggerDoc = JSON.parse(
 
 import * as middleware from './middlewares/index.js';
 
-import contactRouter from './routes/api/contact.js';
+// import contactRouter from './routes/api/contact.js';
 import authRouter from './routes/api/auth.js';
 import userRouter from './routes/api/user.js';
 import productRouter from './routes/api/product.js';
@@ -41,7 +41,7 @@ app.use(
 );
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
-app.use('/api/contacts', middleware.addedHeaders, contactRouter);
+// app.use('/api/contacts', middleware.addedHeaders, contactRouter);
 app.use('/api/auth', middleware.addedHeaders, authRouter);
 app.use('/api/user', middleware.addedHeaders, middleware.auth, userRouter);
 app.use('/api/products', middleware.addedHeaders, productRouter);
