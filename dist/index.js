@@ -27,14 +27,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv/config");
-const promises_1 = require("fs/promises");
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const compression_1 = __importDefault(require("compression"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
-const swaggerDoc = JSON.parse(`${await (0, promises_1.readFile)(new URL('./swagger/openapion', import.meta.url))}`);
+// const swaggerDoc = JSON.parse(
+//   `${readFile(new URL('./swagger/openapion', import.meta.url))}`
+// );
+const doc = require('./swagger/openapi.json');
 const middleware = __importStar(require("./middlewares/index"));
 const contact_1 = __importDefault(require("./routes/api/contact"));
 const auth_1 = __importDefault(require("./routes/api/auth"));
@@ -57,7 +59,7 @@ app.use((0, compression_1.default)({
         return compression_1.default.filter(req, res);
     },
 }));
-app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swaggerDoc));
+app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(doc));
 app.use('/api/contacts', middleware.addedHeaders, contact_1.default);
 app.use('/api/auth', middleware.addedHeaders, auth_1.default);
 app.use('/api/user', middleware.addedHeaders, middleware.auth, user_1.default);

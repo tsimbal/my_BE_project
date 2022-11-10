@@ -1,4 +1,4 @@
-import { IError } from './../types/errors/IErrorResp';
+import { IError } from '../types/server/IErrorResp';
 
 interface IStatusCode {
   [key: number]: string;

@@ -1,4 +1,6 @@
-const addedHeaders = (req, res, next) => {
+import { Request, Response, NextFunction } from 'express';
+
+const addedHeaders = (req: Request, res: Response, next: NextFunction) => {
   res.setHeader(
     'Access-Control-Allow-Headers',
     'Origin, Content-Type, Authorization, Cookie'

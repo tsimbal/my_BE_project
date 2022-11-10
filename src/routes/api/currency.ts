@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
-import { ctrlWrapper } from '../../helpers/index.js';
-import * as ctrl from '../../controllers/currency/index.js';
+import { ctrlWrapper } from '../../helpers/index';
+import * as ctrl from '../../controllers/currency/index';
 
 const router = Router();
 

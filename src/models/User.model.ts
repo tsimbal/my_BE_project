@@ -2,7 +2,7 @@ import { IUser } from './../types/user/IUserDto';
 import { NextFunction } from 'express';
 import mongoose, { Document } from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
-import { IError } from '../types/errors/IErrorResp';
+import { IError } from '../types/server/IErrorResp';
 
 const { Schema, model } = mongoose;
 
@@ -26,17 +26,17 @@ const userSchema = new Schema<IUser>(
   { versionKey: false, timestamps: true }
 );
 
-const handleErrors = (error: IError, data: Document, next: NextFunction) => {
-  const { name, code } = error;
-  if (name === 'MongoServerError' && code === 11000) {
-    error.status = 409;
-  } else {
-    error.status = 400;
-  }
-  next();
-};
+// const handleErrors = (error: IError, data: Document, next: NextFunction) => {
+//   const { name, code } = error;
+//   if (name === 'MongoServerError' && code === 11000) {
+//     error.status = 409;
+//   } else {
+//     error.status = 400;
+//   }
+//   next();
+// };
 
-userSchema.post('save', handleErrors).plugin(mongoosePaginate);
+// userSchema.post('save', handleErrors).plugin(mongoosePaginate);
 
 const UserModel = model<IUser>('user_model', userSchema);
 

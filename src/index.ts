@@ -1,15 +1,12 @@
-import { IError } from './types/errors/IErrorResp';
+import { IError } from './types/server/IErrorResp';
 import 'dotenv/config';
-import { readFile } from 'fs/promises';
+import fs from 'fs/promises';
 import express, { NextFunction, Request, Response, Express } from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import swaggerUi from 'swagger-ui-express';
-const swaggerDoc = JSON.parse(
-  `${await readFile(new URL('./swagger/openapion', import.meta.url))}`
-);
 
 import * as middleware from './middlewares/index';
 
@@ -41,7 +38,7 @@ app.use(
   })
 );
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(file));
 app.use('/api/contacts', middleware.addedHeaders, contactRouter);
 app.use('/api/auth', middleware.addedHeaders, authRouter);
 app.use('/api/user', middleware.addedHeaders, middleware.auth, userRouter);

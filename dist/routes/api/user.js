@@ -24,11 +24,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const index_js_1 = require("../../helpers/index.js");
-const ctrl = __importStar(require("../../controllers/user/index.js"));
+const index_1 = require("../../helpers/index");
+const ctrl = __importStar(require("../../controllers/user/index"));
 const router = (0, express_1.Router)();
-router.get('/', (0, index_js_1.ctrlWrapper)(ctrl.info));
-router.patch('/:id', (0, index_js_1.ctrlWrapper)(ctrl.edit));
-router.get('/get-all', (0, index_js_1.ctrlWrapper)(ctrl.getAll));
+router.get('/', (0, index_1.ctrlWrapper)(ctrl.info));
+router.patch('/:id', (0, index_1.ctrlWrapper)(ctrl.edit));
+router.get('/get-all', (0, index_1.ctrlWrapper)(ctrl.getAll));
 exports.default = router;
 //# sourceMappingURL=user.js.map

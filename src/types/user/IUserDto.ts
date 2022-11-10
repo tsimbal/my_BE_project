@@ -15,7 +15,7 @@ export interface IUser extends Document {
   address: string;
   avatar: string;
   phone: string;
-  password: string;
+  password?: string | any;
   activationLink?: string | undefined;
 }
 

@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
-import { ctrlWrapper } from '../../helpers/index.js';
-import * as ctrl from '../../controllers/contacts/index.js';
+import { ctrlWrapper } from '../../helpers/index';
+import * as ctrl from '../../controllers/contacts/index';
 
-import { isValidId } from '../../middlewares/index.js';
+import { isValidId } from '../../middlewares/index';
 
 const router = Router();
 

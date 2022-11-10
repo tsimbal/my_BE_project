@@ -18,3 +18,7 @@ export interface IProduct extends Document {
     id: number;
   };
 }
+
+export interface IParam {
+  id: string;
+}

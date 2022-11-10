@@ -2,7 +2,7 @@ import { NextFunction } from 'express';
 import mongoose, { Document } from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
 import { ICategory } from '../types/category/ICategory';
-import { IError } from '../types/errors/IErrorResp';
+import { IError } from '../types/server/IErrorResp';
 
 const { Schema, model } = mongoose;
 
@@ -17,17 +17,17 @@ const categorySchema = new Schema<ICategory>(
   { versionKey: false, timestamps: true }
 );
 
-const handleErrors = (error: IError, data: Document, next: NextFunction) => {
-  const { name, code } = error;
-  if (name === 'MongoServerError' && code === 11000) {
-    error.status = 409;
-  } else {
-    error.status = 400;
-  }
-  next();
-};
+// const handleErrors = (error: IError, data: Document, next: NextFunction) => {
+//   const { name, code } = error;
+//   if (name === 'MongoServerError' && code === 11000) {
+//     error.status = 409;
+//   } else {
+//     error.status = 400;
+//   }
+//   next();
+// };
 
-categorySchema.pre('save', handleErrors).plugin(mongoosePaginate);
+// categorySchema.pre('save', handleErrors).plugin(mongoosePaginate);
 
 const CategoryModel = model<ICategory>('category_model', categorySchema);
 

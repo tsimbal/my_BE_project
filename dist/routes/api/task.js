@@ -24,13 +24,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const index_js_1 = require("../../helpers/index.js");
-const ctrl = __importStar(require("../../controllers/task/index.js"));
+const index_1 = require("../../helpers/index");
+const ctrl = __importStar(require("../../controllers/task/index"));
 const router = (0, express_1.Router)();
-router.get('/all-tasks', (0, index_js_1.ctrlWrapper)(ctrl.getAllTasks));
-router.get('/:id', (0, index_js_1.ctrlWrapper)(ctrl.getTask));
-router.post('/create', (0, index_js_1.ctrlWrapper)(ctrl.createTask));
-router.patch('/edit/:id', (0, index_js_1.ctrlWrapper)(ctrl.editTask));
-router.delete('/delete/:id', (0, index_js_1.ctrlWrapper)(ctrl.removeTask));
+router.get('/all-tasks', (0, index_1.ctrlWrapper)(ctrl.getAllTasks));
+router.get('/:id', (0, index_1.ctrlWrapper)(ctrl.getTask));
+router.post('/create', (0, index_1.ctrlWrapper)(ctrl.createTask));
+router.patch('/edit/:id', (0, index_1.ctrlWrapper)(ctrl.editTask));
+router.delete('/delete/:id', (0, index_1.ctrlWrapper)(ctrl.removeTask));
 exports.default = router;
 //# sourceMappingURL=task.js.map

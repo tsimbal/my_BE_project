@@ -24,15 +24,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const index_js_1 = require("../../helpers/index.js");
-const ctrl = __importStar(require("../../controllers/contacts/index.js"));
-const index_js_2 = require("../../middlewares/index.js");
+const index_1 = require("../../helpers/index");
+const ctrl = __importStar(require("../../controllers/contacts/index"));
+const index_2 = require("../../middlewares/index");
 const router = (0, express_1.Router)();
-router.get('/:id', index_js_2.isValidId, (0, index_js_1.ctrlWrapper)(ctrl.getById));
-router.get('/', (0, index_js_1.ctrlWrapper)(ctrl.getAll));
-router.post('/', (0, index_js_1.ctrlWrapper)(ctrl.add));
-router.put('/:id', index_js_2.isValidId, (0, index_js_1.ctrlWrapper)(ctrl.updateById));
-router.delete('/:id', index_js_2.isValidId, (0, index_js_1.ctrlWrapper)(ctrl.removeById));
-router.patch('/:id/favorite', index_js_2.isValidId, (0, index_js_1.ctrlWrapper)(ctrl.updateFavorite));
+router.get('/:id', index_2.isValidId, (0, index_1.ctrlWrapper)(ctrl.getById));
+router.get('/', (0, index_1.ctrlWrapper)(ctrl.getAll));
+router.post('/', (0, index_1.ctrlWrapper)(ctrl.add));
+router.put('/:id', index_2.isValidId, (0, index_1.ctrlWrapper)(ctrl.updateById));
+router.delete('/:id', index_2.isValidId, (0, index_1.ctrlWrapper)(ctrl.removeById));
+router.patch('/:id/favorite', index_2.isValidId, (0, index_1.ctrlWrapper)(ctrl.updateFavorite));
 exports.default = router;
 //# sourceMappingURL=contact.js.map

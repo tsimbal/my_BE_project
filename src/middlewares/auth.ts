@@ -1,15 +1,17 @@
+import { IUserDto } from './../types/user/IUserDto';
 import { Request, Response, NextFunction } from 'express';
-import { JwtPayload } from 'jsonwebtoken';
 
 import errorService from '../service/error-service';
 import tokenService from '../service/token-service';
 
-interface IRequest extends Request {
-  meta: string;
-  user: string | object | JwtPayload;
+declare module 'express' {
+  interface Request {
+    meta?: string;
+    user?: IUserDto | null | unknown;
+  }
 }
 
-const auth = (req: IRequest, res: Response, next: NextFunction) => {
+const auth = (req: Request, res: Response, next: NextFunction) => {
   if (req.meta === 'OPTIONS') return next();
 
   try {

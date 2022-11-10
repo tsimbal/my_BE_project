@@ -24,14 +24,14 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const index_js_1 = require("../../helpers/index.js");
-const ctrl = __importStar(require("../../controllers/product/index.js"));
-const middleware = __importStar(require("../../middlewares/index.js"));
+const index_1 = require("../../helpers/index");
+const ctrl = __importStar(require("../../controllers/product/index"));
+const middleware = __importStar(require("../../middlewares/index"));
 const router = (0, express_1.Router)();
-router.get('/all-products', (0, index_js_1.ctrlWrapper)(ctrl.getAllProducts));
-router.get('/:id', (0, index_js_1.ctrlWrapper)(ctrl.getProduct));
-router.post('/create', middleware.auth, (0, index_js_1.ctrlWrapper)(ctrl.createProduct));
-router.patch('/edit/:id', middleware.auth, (0, index_js_1.ctrlWrapper)(ctrl.editProduct));
-router.delete('/delete/:id', middleware.auth, (0, index_js_1.ctrlWrapper)(ctrl.removeProduct));
+router.get('/all-products', (0, index_1.ctrlWrapper)(ctrl.getAllProducts));
+router.get('/:id', (0, index_1.ctrlWrapper)(ctrl.getProduct));
+router.post('/create', middleware.auth, (0, index_1.ctrlWrapper)(ctrl.createProduct));
+router.patch('/edit/:id', middleware.auth, (0, index_1.ctrlWrapper)(ctrl.editProduct));
+router.delete('/delete/:id', middleware.auth, (0, index_1.ctrlWrapper)(ctrl.removeProduct));
 exports.default = router;
 //# sourceMappingURL=product.js.map

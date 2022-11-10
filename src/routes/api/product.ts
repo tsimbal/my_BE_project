@@ -1,8 +1,8 @@
 import { Router } from 'express';
 
-import { ctrlWrapper } from '../../helpers/index.js';
-import * as ctrl from '../../controllers/product/index.js';
-import * as middleware from '../../middlewares/index.js';
+import { ctrlWrapper } from '../../helpers/index';
+import * as ctrl from '../../controllers/product/index';
+import * as middleware from '../../middlewares/index';
 
 const router = Router();
 

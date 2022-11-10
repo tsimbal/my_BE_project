@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
-import { ctrlWrapper } from '../../helpers/index.js';
-import * as ctrl from '../../controllers/task/index.js';
+import { ctrlWrapper } from '../../helpers/index';
+import * as ctrl from '../../controllers/task/index';
 
 const router = Router();
 
