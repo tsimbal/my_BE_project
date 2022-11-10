@@ -1,4 +1,4 @@
-import User from '../../models/User.js';
+import User from '../../models/User.model.js';
 import errorService from '../../service/error-service.js';
 
 const edit = async (req, res) => {
