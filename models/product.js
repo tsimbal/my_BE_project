@@ -43,6 +43,6 @@ const handleErrors = (error, data, next) => {
 
 productSchema.post('save', handleErrors).plugin(mongoosePaginate);
 
-const Product = model('product', productSchema);
+const ProductModel = model('product_model', productSchema);
 
-export default Product;
+export default ProductModel;

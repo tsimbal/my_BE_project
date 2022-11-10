@@ -26,6 +26,6 @@ const handleErrors = (error, data, next) => {
 
 categorySchema.post('save', handleErrors).plugin(mongoosePaginate);
 
-const Category = model('category', categorySchema);
+const CategoryModel = model('category_model', categorySchema);
 
-export default Category;
+export default CategoryModel;

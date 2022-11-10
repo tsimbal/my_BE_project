@@ -1,4 +1,4 @@
-const { Schema, model, Types } = require('mongoose');
+import { Schema, model, Types } from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
 
 const taskSchema = new Schema(
@@ -24,6 +24,6 @@ const handleErrors = (error, data, next) => {
 
 taskSchema.post('save', handleErrors).plugin(mongoosePaginate);
 
-const Task = model('Task', taskSchema);
+const TaskModel = model('task_model', taskSchema);
 
-export default Task;
+export default TaskModel;
