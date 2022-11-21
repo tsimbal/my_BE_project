@@ -1,12 +1,12 @@
 import { IError } from './types/server/IErrorResp';
 import 'dotenv/config';
-import fs from 'fs/promises';
 import express, { NextFunction, Request, Response, Express } from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import swaggerUi from 'swagger-ui-express';
+import * as swaggerDoc from './swagger/openapi.json';
 
 import * as middleware from './middlewares/index';
 
@@ -25,6 +25,7 @@ app.use(cors({ origin: [`${process.env.CLIENT_URL}`], credentials: true }));
 
 app.use(compression());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.use(
   compression({
@@ -38,23 +39,24 @@ app.use(
   })
 );
 
-// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(file));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 app.use('/api/contacts', middleware.addedHeaders, contactRouter);
 app.use('/api/auth', middleware.addedHeaders, authRouter);
-app.use('/api/user', middleware.addedHeaders, userRouter);
+app.use('/api/user', middleware.auth, userRouter);
 app.use('/api/products', middleware.addedHeaders, productRouter);
 app.use('/api/category', middleware.addedHeaders, categoryRouter);
 app.use('/api/currency', middleware.addedHeaders, currencyRouter);
 
 app.use((req, res) => {
-  res.status(404).json({
+  return res.status(404).json({
     message: 'Not found',
   });
 });
 
 app.use((error: IError, req: Request, res: Response, _: NextFunction) => {
   const { status = 500, message = 'Server error' } = error;
-  res.status(status).json({
+
+  return res.status(status).json({
     message,
   });
 });

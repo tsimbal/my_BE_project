@@ -8,7 +8,7 @@ export default {
 
   generateToken(data: object) {
     const access_token = jwt.sign(data, this.jwtSecret, {
-      expiresIn: '15s',
+      expiresIn: '2h',
     });
 
     const refresh_token = jwt.sign(data, this.refreshJwtSecret, {

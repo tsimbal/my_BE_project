@@ -5,12 +5,12 @@ const ctrlWrapper = (
 ) => {
   const func = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      await ctrl(req, res, next);
+      return await ctrl(req, res, next);
     } catch (error: unknown) {
       const typedError = error as Error;
 
       errorService.serverError(res, typedError);
-      next(error);
+      return next(error);
     }
   };
 

@@ -8,11 +8,11 @@ export default {
       timestamps: Date.now(),
     });
   },
-  badRequest(res: Response, message: string, error: object[] | null = null) {
+  badRequest(res: Response, message: string, errors: object[] | null = null) {
     return res.status(400).json({
       statusCode: 400,
       message,
-      error,
+      errors,
     });
   },
   serverError(res: Response, error: Error) {
