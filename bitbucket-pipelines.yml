@@ -1,0 +1,12 @@
+#  Template NodeJS build
+
+#  This template allows you to validate your NodeJS code.
+#  The workflow allows running tests and code linting on the default branch.
+
+image: node:16
+
+pipelines:
+  default:
+      - step:
+          script:
+            - git push https://heroku:bd83fab3-04a8-4488-92c9-b5b51d564a62@git.heroku.com/test-node-tsimbal.git HEAD
