@@ -16,6 +16,7 @@ import userRouter from './routes/api/user';
 import productRouter from './routes/api/product';
 import categoryRouter from './routes/api/category';
 import currencyRouter from './routes/api/currency';
+import testRouter from './routes/api/test';
 
 const { PORT = 5000 } = process.env;
 const app: Express = express();
@@ -45,6 +46,7 @@ app.use('/api/user', middleware.auth, userRouter);
 app.use('/api/products', middleware.addedHeaders, productRouter);
 app.use('/api/category', middleware.addedHeaders, categoryRouter);
 app.use('/api/currency', middleware.addedHeaders, currencyRouter);
+app.use('/api/test', testRouter);
 
 app.use((req, res) => {
   return res.status(404).json({
