@@ -27,7 +27,7 @@ app.use(
     origin: [
       `${process.env.CLIENT_URL}`,
       'http://localhost:3000',
-      'https://fierce-beyond-65387.herokuapp.com/',
+      'https://fierce-beyond-65387.herokuapp.com',
     ],
     credentials: true,
   })
