@@ -16,7 +16,12 @@ const getAllProducts = async (
 
   const products = await Product.find();
   if (!products.length) {
-    return errorService.badRequest(res, 'Products not found');
+    return res.status(200).json({
+      statusCode: 200,
+      data: [],
+      totalRows: products.length,
+      limit: pagination.limit,
+    });
   }
 
   return res.status(200).json({
