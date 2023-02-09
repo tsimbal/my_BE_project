@@ -24,7 +24,11 @@ const app: Express = express();
 app.use(cookieParser());
 app.use(
   cors({
-    origin: [`${process.env.CLIENT_URL}`, 'http://localhost:3000'],
+    origin: [
+      `${process.env.CLIENT_URL}`,
+      'http://localhost:3000',
+      'https://fierce-beyond-65387.herokuapp.com/',
+    ],
     credentials: true,
   })
 );
