@@ -241,6 +241,68 @@
         }
       }
     },
+    "/api/user/update-password": {
+      "post": {
+        "tags": ["User"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {},
+              "example": {
+                "oldPassword": "oldPass",
+                "newPassword": "newPass"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update password",
+            "content": {
+              "application/json": {
+                "example": {
+                  "statusCode": 200,
+                  "message": "Password was successfully updated",
+                  "data": {
+                    "name": "string",
+                    "surname": "string",
+                    "sex": 0,
+                    "birthday": "string",
+                    "city": "string",
+                    "country": "string",
+                    "address": "string",
+                    "avatar": "string",
+                    "phone": "string",
+                    "email": "string",
+                    "zip": "string",
+                    "isActivated": false,
+                    "activationLink": "",
+                    "updatedAt": "string",
+                    "createdAt": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/category/create": {
       "post": {
         "tags": ["Category"],
