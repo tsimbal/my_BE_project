@@ -16,7 +16,7 @@ const register = async (req: Request, res: Response): Promise<Response> => {
     return errorService.badRequest(res, 'Incorrect data', errors.array());
   }
 
-  const { email, password } = req.body;
+  const { email, password, firstName, lastName, sex } = req.body;
 
   const candidate: IUser | null = await User.findOne({ email });
 
@@ -29,14 +29,18 @@ const register = async (req: Request, res: Response): Promise<Response> => {
   const hashPassword = await bcrypt.hash(password, 3);
   const user: IUser | unknown = await User.create({
     email,
+    name: firstName,
+    surname: lastName,
+    birthday: req.body.birthday || null,
+    sex,
     password: hashPassword,
     activationLink,
   });
 
-  await mailService.sendActivationMail(
-    email,
-    `${process.env.API_URL}/api/auth/activation/${activationLink}`
-  );
+  // await mailService.sendActivationMail(
+  //   email,
+  //   `${process.env.API_URL}/api/auth/activation/${activationLink}`
+  // );
 
   const userData = userDto.generateUserDto(user);
   const tokens = tokenService.generateToken({ ...userData });
